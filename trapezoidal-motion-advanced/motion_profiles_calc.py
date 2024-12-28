@@ -27,7 +27,7 @@ def _calculate_increase_const_decrease_min_time(
     t_acc = (v_max - v_start) / a_max
     t_dec = (v_max - v_final) / a_max
     s_acc = v_start * t_acc + 0.5 * a_max * t_acc**2
-    s_dec = v_final * t_dec + 0.5 * a_max * t_dec**2
+    s_dec = v_max * t_dec - 0.5 * a_max * t_dec**2
     s_const = dist - s_acc - s_dec
 
     # distances must have same signs
@@ -90,6 +90,7 @@ def calculate_min_time(dist: float, v_start: float, v_final: float, v_max: float
         T_min += 0.0000000001
         return T_min
 
+    assert False, "This line should not be reached"
     T_min = _calculate_rapid_decrease_min_time(dist, v_start, v_final, v_max, a_max)
     assert T_min >= 0
     T_min += 0.0000000001
