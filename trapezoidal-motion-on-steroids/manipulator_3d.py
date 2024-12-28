@@ -67,7 +67,7 @@ def animate_trajectory(
     animation = FuncAnimation(
         fig, update_animation, init_func=init_animation, frames=total_frames_count, interval=interval, blit=True
     )
-    # animation.save("3-dof.gif", writer=PillowWriter(fps=20))
+    animation.save("3-dof-cart.gif", writer=PillowWriter(fps=20))
 
     plt.show()
 
