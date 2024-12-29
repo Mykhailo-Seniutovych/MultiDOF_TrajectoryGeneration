@@ -77,7 +77,7 @@ def animate_trajectory(
     interval = 1000 / fps
     total_frames_count = int(trajectory.total_time() * fps)
     animation = FuncAnimation(fig, update_animation, frames=total_frames_count, interval=interval, blit=True)
-    animation.save("2-DOF-traj-advanced.gif", writer=PillowWriter(fps=fps))
+    #animation.save("2-DOF-traj-advanced.gif", writer=PillowWriter(fps=fps))
     plt.show()
 
 

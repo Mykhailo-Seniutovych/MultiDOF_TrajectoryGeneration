@@ -62,39 +62,24 @@ def _calculate_increase_min_time(dist: float, v_start: float, v_final: float, v_
     return T_min
 
 
-def _calculate_rapid_decrease_min_time(dist: float, v_start: float, v_final: float, v_max: float, a_max: float):
-    a_max = np.abs(a_max) if dist >= 0 else -np.abs(a_max)
-    v_max = np.abs(v_max) if dist >= 0 else -np.abs(v_max)
-
-    T_min = np.sqrt(2 * dist / (-a_max))
-    v_f_calculated = v_start + a_max * T_min
-    if np.abs(v_f_calculated) > np.abs(v_final):
-        return -1
-    return T_min
-
-
 def calculate_min_time(dist: float, v_start: float, v_final: float, v_max: float, a_max: float) -> float:
     assert v_start * v_final >= 0  # same sign
     T_min = _calculate_increase_const_decrease_min_time(dist, v_start, v_final, v_max, a_max)
-    if T_min > 0:
+    if T_min >= 0:
         T_min += 0.0000000001  # to avoid numerical errors
         return T_min
 
     T_min = _calculate_increase_decrease_min_time(dist, v_start, v_final, v_max, a_max)
-    if T_min > 0:
+    if T_min >= 0:
         T_min += 0.0000000001
         return T_min
 
     T_min = _calculate_increase_min_time(dist, v_start, v_final, v_max, a_max)
-    if T_min > 0:
+    if T_min >= 0:
         T_min += 0.0000000001
         return T_min
 
-    assert False, "This line should not be reached"
-    T_min = _calculate_rapid_decrease_min_time(dist, v_start, v_final, v_max, a_max)
-    assert T_min >= 0
-    T_min += 0.0000000001
-    return T_min
+    assert False, "No solution found"
 
 
 #################################
